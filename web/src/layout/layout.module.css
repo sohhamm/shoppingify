@@ -1,0 +1,23 @@
+.container {
+  display: grid;
+  grid-template-columns: 95px 1fr 390px;
+}
+
+/* sidebar */
+.box,
+.menus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.box {
+  height: 100%;
+  width: 100%;
+  background-color: red;
+}
+
+.menus {
+  gap: 61px;
+}
