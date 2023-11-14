@@ -1,6 +1,12 @@
+/* layout */
 .container {
+  height: 100%;
   display: grid;
   grid-template-columns: 95px 1fr 390px;
+}
+
+.content {
+  background-color: #fafafe;
 }
 
 /* sidebar */
@@ -8,16 +14,62 @@
 .menus {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .box {
+  padding-top: 52.5px;
+  padding-bottom: 35px;
   height: 100%;
   width: 100%;
-  background-color: red;
 }
 
 .menus {
   gap: 61px;
+}
+
+.activeLink {
+  position: relative;
+}
+
+.activeLink::before {
+  display: block;
+  content: '';
+  width: 6px;
+  height: 45.981px;
+  border-radius: 0px 4px 4px 0px;
+  background-color: #f9a109;
+  position: absolute;
+  top: -9.99px;
+  left: calc(-28px + -6px);
+}
+
+.cart {
+  width: 42px;
+  height: 42px;
+  background-color: #f9a109;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cartNo {
+  width: 20.715px;
+  height: 19.97px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #eb5757;
+
+  position: absolute;
+  top: -5px;
+  right: -4px;
+
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
 }

@@ -1,0 +1,19 @@
+.container [data-part='arrow'] {
+  --arrow-size: 7px;
+  --arrow-background: #454545;
+}
+
+.container [data-part='content'] {
+  /* styles for the content */
+  border-radius: 4px;
+  background: #454545;
+  width: 64.635px;
+  height: 21.077px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+}

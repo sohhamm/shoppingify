@@ -1,23 +1,55 @@
+import Tooltip from '../components/tooltip/Tooltip'
 import Logo from '../assets/logo.svg'
-import Cart from '../assets/cart.svg'
 import classes from './layout.module.css'
-import {List, History, LineChart} from 'lucide-solid'
+import {A} from '@solidjs/router'
+import {List, History, LineChart, ShoppingCart} from 'lucide-solid'
+import {For, createSignal} from 'solid-js'
 import type {Component} from 'solid-js'
 
-const Sidebar: Component<{}> = () => (
-  <div class={classes.box}>
-    <div>
-      <Logo />
+const Sidebar: Component<{}> = () => {
+  const [cartNo, _setCartNo] = createSignal(3)
+
+  const links = [
+    {
+      href: '/items',
+      icon: <List size={26} color='#454545' />,
+      tooltip: 'item',
+    },
+    {
+      href: '/history',
+      icon: <History size={26} color='#454545' />,
+      tooltip: 'history',
+    },
+    {
+      href: '/stats',
+      icon: <LineChart size={26} color='#454545' />,
+      tooltip: 'statistics',
+    },
+  ]
+
+  return (
+    <div class={classes.box}>
+      <div>
+        <Logo />
+      </div>
+      <div class={classes.menus}>
+        <For each={links}>
+          {link => (
+            <Tooltip id={link.tooltip} content={link.tooltip}>
+              <A href={link.href} activeClass={classes.activeLink}>
+                {link.icon}
+              </A>
+            </Tooltip>
+          )}
+        </For>
+      </div>
+      <div class={classes.cart}>
+        <ShoppingCart size={20} color='white' class={classes.cartIcon} />
+
+        <div class={classes.cartNo}>{cartNo()}</div>
+      </div>
     </div>
-    <div class={classes.menus}>
-      <List size={26} />
-      <History size={26} />
-      <LineChart size={26} />
-    </div>
-    <div>
-      <Cart />
-    </div>
-  </div>
-)
+  )
+}
 
 export default Sidebar
