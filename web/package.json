@@ -14,13 +14,13 @@
     "@zag-js/solid": "^0.29.0",
     "@zag-js/tooltip": "^0.29.0",
     "lucide-solid": "^0.292.0",
-    "solid-js": "^1.7.8",
+    "solid-js": "^1.8.5",
     "vite-plugin-checker": "^0.6.2"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vite-plugin-solid": "^2.7.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-solid": "^2.7.2",
     "vite-plugin-solid-svg": "^0.7.0"
   }
 }

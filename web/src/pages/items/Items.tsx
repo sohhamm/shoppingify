@@ -1,9 +1,9 @@
 import classes from './items.module.css'
-import {Component, For, Show, createSignal} from 'solid-js'
+import {For, Show, createSignal} from 'solid-js'
 import {Plus, X, Search} from 'lucide-solid'
 import {items} from '../../service/item'
 
-const Items: Component<{}> = () => {
+export default function Items() {
   const [search, setSearch] = createSignal('')
 
   return (
@@ -52,5 +52,3 @@ const Items: Component<{}> = () => {
     </div>
   )
 }
-
-export default Items
