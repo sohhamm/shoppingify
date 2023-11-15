@@ -5,7 +5,7 @@ import solidSvg from 'vite-plugin-solid-svg'
 
 export default defineConfig({
   plugins: [
-    solid(),
+    solid({typescript: {onlyRemoveTypeImports: false}}),
     checker({
       typescript: true,
     }),

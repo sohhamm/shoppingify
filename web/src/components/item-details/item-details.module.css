@@ -1,0 +1,89 @@
+.box {
+  padding: 27px 44px;
+  height: 100%;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.btn {
+  border: none;
+  color: #f9a109;
+  font-size: 0.875rem;
+  font-weight: 700;
+  background: none;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  margin-bottom: 34px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.itemImg {
+  width: 100%;
+  height: 220px;
+  border-radius: 25px;
+  margin-bottom: 53px;
+}
+
+.innerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.title {
+  color: #c1c1c4;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.name {
+  /* color: #000; */
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 11px;
+}
+
+.desc {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.cta {
+  height: 130px;
+  position: absolute;
+  bottom: 0;
+  padding: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ctaAdd,
+.ctaDel {
+  width: 124px;
+  height: 61.25px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ctaAdd:hover,
+.ctaDel:hover {
+  cursor: pointer;
+}
+
+.ctaAdd {
+  background: #f9a109;
+  color: white;
+}
+
+.ctaDel {
+  background: white;
+  color: black;
+}
