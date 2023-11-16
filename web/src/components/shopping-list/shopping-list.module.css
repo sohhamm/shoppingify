@@ -1,8 +1,9 @@
 .box {
-  overflow: none;
+  overflow-y: scroll;
+  position: relative;
   background: #fff0de;
   padding: 45px;
-  height: 100%;
+  height: 100vh;
 }
 
 .header {
@@ -14,6 +15,7 @@
   display: flex;
   justify-content: flex-end;
   position: relative;
+  margin-bottom: 36px;
 }
 
 .headerImg {
@@ -37,7 +39,6 @@
 .addItemCTA {
   width: 120px;
   height: 40px;
-
   border-radius: 12px;
   background: #fff;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.04);
@@ -49,4 +50,109 @@
 
 .addItemCTA:hover {
   cursor: pointer;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.title > p {
+  color: #34333a;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.editIcon:hover {
+  cursor: pointer;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  row-gap: 52px;
+}
+
+.categoryName {
+  color: #828282;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itemName {
+  color: #000;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.qty {
+  width: 68px;
+  height: 32px;
+  border-radius: 24px;
+  border: 2px solid #f9a109;
+  color: #f9a10a;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: transparent;
+}
+
+.itemCheckbox {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.itemCheck {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  /* outline: 2px solid #f9a109; */
+  background-color: #f9a109;
+
+  accent-color: #fff0de;
+}
+
+@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+  input[type='checkbox'],
+  input[type='radio'] {
+    /* -webkit-appearance: none; */
+    /* -moz-appearance: none; */
+    --active: #275efe;
+    --active-inner: #fff;
+    --focus: 2px rgba(39, 94, 254, 0.25);
+    --border: #bbc1e1;
+    --border-hover: #275efe;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+  }
+}
+
+.qtyEditBox {
+  display: flex;
+  align-items: center;
+  gap: 8.5px;
+  height: 44.9px;
+}
+
+.qtyEdit {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  background: #fff;
+  gap: 4px;
 }

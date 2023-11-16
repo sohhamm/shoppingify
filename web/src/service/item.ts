@@ -180,3 +180,70 @@ export const items = [
     ],
   },
 ]
+
+export const list = [
+  {
+    category: 'Fruit and vegetables',
+    category_id: '2701338f-e085-4de2-94aa-97ff1af00f39',
+    items: [
+      {
+        id: '1',
+        name: 'Tasty Concrete',
+        quantity: 3,
+      },
+      {
+        id: '2',
+        name: 'Incredible Rubber Pants',
+        quantity: 1,
+      },
+      {
+        id: '3',
+        name: 'Awesome Frozen Shirt',
+        quantity: 2,
+      },
+    ],
+  },
+  {
+    category: 'Meat and Fish',
+    category_id: '817a16a5-9617-4bbf-bad8-6a113011c549',
+    items: [
+      {
+        id: '9',
+        name: 'Recycled Metal Tuna',
+        quantity: 1,
+      },
+    ],
+  },
+  {
+    category: 'Beverages',
+    category_id: '3715a5ad-3b18-4537-a226-a1fb11e84190',
+    items: [
+      {
+        id: '13',
+        name: 'Refined Rubber Hat',
+        quantity: 1,
+      },
+    ],
+  },
+  {
+    category: 'Others',
+    category_id: '8b4d4012-33fb-48e4-a3d2-db2825b92fb4',
+    items: [
+      {
+        id: '19',
+        name: 'Licensed Fresh Bike',
+        quantity: 2,
+      },
+      {
+        id: '20',
+        name: 'Fantastic Fresh Ball',
+        quantity: 2,
+      },
+      {
+        id: '21',
+        name: 'Licensed Steel Soap',
+        quantity: 1,
+      },
+    ],
+  },
+]
