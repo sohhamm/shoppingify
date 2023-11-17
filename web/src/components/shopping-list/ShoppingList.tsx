@@ -1,8 +1,9 @@
 import classes from './shopping-list.module.css'
-import {For, Match, Show, Switch, createSignal} from 'solid-js'
+import {For, Match, Show, Switch, createSignal, onMount} from 'solid-js'
 import {Pencil, Trash, Minus, Plus} from 'lucide-solid'
 import {setStore} from '../../store'
 import {list} from '../../service/item'
+import EmptyList from './EmptyList'
 
 interface ShoppingListProps {}
 
@@ -10,6 +11,14 @@ export default function ShoppingList({}: ShoppingListProps) {
   const [editing, setEditing] = createSignal(true)
   const [inputName, setInputName] = createSignal('')
   const [name, setName] = createSignal('Shopping List')
+
+  const isEmptyList = () => !!!list?.length
+
+  onMount(() => {
+    // todo when the shopping list already has name, comes from db,
+    // if(list.name) setEditing(false)
+  })
+
   const handleAddItem = () => {
     setStore('aside', 'addingNewItem', true)
   }
@@ -19,6 +28,19 @@ export default function ShoppingList({}: ShoppingListProps) {
     setName(inputName)
     // todo api call to set name
     setInputName('')
+    setEditing(false)
+  }
+
+  const handleDeleteItem = () => {}
+
+  const handleReduceQty = () => {}
+
+  const handleIncreaseQty = () => {}
+
+  const handleCancel = () => {}
+
+  const handleComplete = () => {
+    // todo hit complete list api, save to history
   }
 
   return (
@@ -34,56 +56,74 @@ export default function ShoppingList({}: ShoppingListProps) {
         </div>
       </div>
 
-      <div class={classes.title}>
-        <p>{name()}</p>
-        <Pencil
-          size={22}
-          color="#34333A"
-          onClick={() => setEditing(e => !e)}
-          class={classes.editIcon}
-        />
-      </div>
+      <Show when={isEmptyList()}>
+        <EmptyList />
+      </Show>
 
-      <div class={classes.categories}>
-        <For each={list}>
-          {category => (
-            <div class={classes.category}>
-              <p class={classes.categoryName}>{category.category}</p>
-              <div class={classes.items}>
-                <For each={category.items}>
-                  {item => (
-                    <div class={classes.item}>
-                      <Switch>
-                        <Match when={!editing()}>
-                          <div class={classes.itemName}>{item.name}</div>
-                          <button class={classes.qty}>{item.quantity}</button>
-                        </Match>
-                        <Match when={editing()}>
-                          <div class={classes.itemCheckbox}>
-                            <input type="checkbox" class={classes.itemCheck} />
-                            <div class={classes.itemName}>{item.name}</div>
-                          </div>
-                          <div class={classes.qtyEditBox}>
-                            <div class={classes.qtyEdit}>
-                              <div>
-                                <Trash />
+      <Show when={!isEmptyList()}>
+        <div class={classes.title}>
+          <p>{name()}</p>
+          <Pencil
+            size={22}
+            color="#34333A"
+            onClick={() => setEditing(e => !e)}
+            class={classes.editIcon}
+          />
+        </div>
+
+        <div class={classes.categories}>
+          <For each={list}>
+            {category => {
+              return (
+                <div class={classes.category}>
+                  <p class={classes.categoryName}>{category.category}</p>
+                  <div class={classes.items}>
+                    <For each={category.items}>
+                      {item => (
+                        <div class={classes.item}>
+                          <Switch>
+                            <Match when={!editing()}>
+                              <div class={classes.itemCheckbox}>
+                                <input type="checkbox" class={classes.itemCheck} />
+                                <div class={classes.itemName}>{item.name}</div>
                               </div>
-
-                              <Minus />
                               <button class={classes.qty}>{item.quantity} pcs</button>
-                              <Plus />
-                            </div>
-                          </div>
-                        </Match>
-                      </Switch>
-                    </div>
-                  )}
-                </For>
-              </div>
-            </div>
-          )}
-        </For>
-      </div>
+                            </Match>
+                            <Match when={editing()}>
+                              <div class={classes.itemName}>{item.name}</div>
+                              <div class={classes.qtyEditBox}>
+                                <div class={classes.qtyEdit}>
+                                  <div class={classes.qtyDel} onClick={handleDeleteItem}>
+                                    <Trash size={18} color="#fff" />
+                                  </div>
+                                  <Minus
+                                    size={18}
+                                    color="#F9A109"
+                                    class={classes.editIcon}
+                                    onClick={handleReduceQty}
+                                  />
+                                  <button class={classes.qty}>{item.quantity} pcs</button>
+                                  <Plus
+                                    size={18}
+                                    color="#F9A109"
+                                    class={classes.editIcon}
+                                    onClick={handleIncreaseQty}
+                                  />
+                                </div>
+                              </div>
+                              <button class={classes.editQty}>{item.quantity} pcs</button>
+                            </Match>
+                          </Switch>
+                        </div>
+                      )}
+                    </For>
+                  </div>
+                </div>
+              )
+            }}
+          </For>
+        </div>
+      </Show>
 
       <div class={classes.footer}>
         <Show when={editing()}>
@@ -93,8 +133,10 @@ export default function ShoppingList({}: ShoppingListProps) {
               class={classes.listNameInput}
               value={inputName()}
               onInput={e => setInputName(e.currentTarget.value)}
+              placeholder="enter a name"
+              disabled={isEmptyList()}
             />
-            <button class={classes.saveBtn} onClick={handleSaveName}>
+            <button class={classes.ctaSave} onClick={handleSaveName} disabled={isEmptyList()}>
               Save
             </button>
           </div>
@@ -102,8 +144,12 @@ export default function ShoppingList({}: ShoppingListProps) {
 
         <Show when={!editing()}>
           <div class={classes.ctaBox}>
-            <button class={classes.completeBtn}>cancel</button>
-            <button class={classes.cancelBtn}>Complete</button>
+            <button class={classes.ctaCancel} onClick={handleCancel}>
+              cancel
+            </button>
+            <button class={classes.ctaComplete} onClick={handleComplete}>
+              Complete
+            </button>
           </div>
         </Show>
       </div>

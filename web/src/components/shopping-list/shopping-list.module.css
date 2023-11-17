@@ -1,8 +1,8 @@
 .box {
   overflow-y: scroll;
-  position: relative;
   background: #fff0de;
   padding: 45px;
+  padding-bottom: 150px;
   height: 100vh;
 }
 
@@ -91,6 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .itemName {
@@ -99,7 +100,8 @@
   font-weight: 500;
 }
 
-.qty {
+.qty,
+.editQty {
   width: 68px;
   height: 32px;
   border-radius: 24px;
@@ -110,6 +112,10 @@
   background-color: transparent;
 }
 
+.editQty {
+  flex-shrink: 0;
+}
+
 .itemCheckbox {
   display: flex;
   align-items: center;
@@ -117,6 +123,7 @@
 }
 
 .itemCheck {
+  flex: 0;
   width: 24px;
   height: 24px;
   border-radius: 4px;
@@ -145,14 +152,168 @@
 .qtyEditBox {
   display: flex;
   align-items: center;
-  gap: 8.5px;
-  height: 44.9px;
+  gap: 10px;
+  /* height: 44.9px; */
+  flex-shrink: 0;
+  flex-grow: 1;
+  padding-right: 8px;
+  background: #fff;
+  border-radius: 12px;
+
+  display: none;
+}
+
+.item:hover > div:not(.item .itemCheckbox) {
+  display: block;
+}
+
+.item:hover > .editQty {
+  display: none;
 }
 
 .qtyEdit {
   display: flex;
   align-items: center;
-  border-radius: 12px;
-  background: #fff;
   gap: 4px;
+}
+
+.qtyDel {
+  width: 37.072px;
+  height: 44.9px;
+  border-radius: 12px;
+  background: #f9a109;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qtyDel:hover {
+  cursor: pointer;
+}
+
+.editIcon:hover {
+  cursor: pointer;
+}
+
+/* footer */
+.footer {
+  height: 130px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 390px;
+  padding: 34px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.ctaBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ctaComplete,
+.ctaCancel {
+  width: 124px;
+  height: 61.25px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ctaComplete:hover,
+.ctaCancel:hover {
+  cursor: pointer;
+}
+
+.ctaComplete {
+  background: #56ccf2;
+  color: white;
+}
+
+.ctaCancel {
+  background: white;
+  color: black;
+}
+
+.inputBox {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+}
+
+.listNameInput {
+  width: 100%;
+  height: 61.25px;
+  padding-left: 17.5px;
+  padding-right: 100px;
+  border-radius: 12px;
+  border: 2px solid #f9a109;
+}
+
+.listNameInput:focus-visible {
+  outline: 0.5px solid #e09005;
+}
+
+.ctaSave {
+  position: absolute;
+  right: 0;
+  width: 87.348px;
+  height: 61px;
+  border-radius: 12px;
+  background: #f9a109;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+}
+
+.ctaSave:hover:not(:disabled) {
+  cursor: pointer;
+}
+
+.ctaSave:hover:disabled {
+  cursor: not-allowed;
+}
+
+.ctaSave:disabled {
+  background: #c1c1c4;
+}
+
+.listNameInput::placeholder {
+  color: #bdbdbd;
+
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.listNameInput:disabled {
+  border-color: #c1c1c4;
+}
+/* empty list */
+
+.emptyBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 325px);
+}
+
+.emptyText {
+  color: #34333a;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.emptyImg {
+  position: absolute;
+
+  bottom: 118px;
+  z-index: 1;
 }

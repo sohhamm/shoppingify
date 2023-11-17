@@ -1,7 +1,10 @@
 import classes from './shopping-list.module.css'
 
-interface EmptyListProps {}
-
-export default function EmptyList({}: EmptyListProps) {
-  return <div class={classes.box}>first</div>
+export default function EmptyList() {
+  return (
+    <div class={classes.emptyBox}>
+      <p class={classes.emptyText}>No items</p>
+      <img src="empty-list.svg" alt="empty list" class={classes.emptyImg} />
+    </div>
+  )
 }

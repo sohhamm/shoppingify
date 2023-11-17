@@ -247,3 +247,13 @@ export const list = [
     ],
   },
 ]
+
+// export const list: {
+//   category: string
+//   category_id: string
+//   items: {
+//     id: string
+//     name: string
+//     quantity: number
+//   }[]
+// }[] = []
