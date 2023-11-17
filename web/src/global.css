@@ -66,3 +66,11 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+:root {
+  --primary-color: #f9a109;
+  --secondary-color: #56ccf2;
+  --danger-color: #eb5757;
+  --disabled-color: #c1c1c4;
+  --text-primary: #34333a;
+}

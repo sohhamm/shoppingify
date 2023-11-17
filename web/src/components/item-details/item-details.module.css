@@ -79,7 +79,7 @@
 }
 
 .ctaAdd {
-  background: #f9a109;
+  background: var(--primary-color);
   color: white;
 }
 

@@ -181,7 +181,7 @@
   width: 37.072px;
   height: 44.9px;
   border-radius: 12px;
-  background: #f9a109;
+  background: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,7 +266,7 @@
   width: 87.348px;
   height: 61px;
   border-radius: 12px;
-  background: #f9a109;
+  background: var(--primary-color);
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
