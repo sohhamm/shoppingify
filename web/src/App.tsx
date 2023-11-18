@@ -1,5 +1,5 @@
 import Items from './pages/items/ItemsPage'
-import History from './pages/history/History'
+import History from './pages/history/HistoryPage'
 import Stats from './pages/stats/Stats'
 import Layout from './layout/Layout'
 import {Routes, Route, Navigate} from '@solidjs/router'
@@ -33,6 +33,7 @@ export default function App() {
         <Route path="/history" component={History}>
           <Route path="/" component={ShoppingList} />
           <Route path="/add" component={AddItem} />
+          <Route path="/:historyId" component={AddItem} />
         </Route>
         <Route path="/stats" component={Stats}>
           <Route path="/" component={ShoppingList} />
