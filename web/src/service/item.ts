@@ -257,3 +257,21 @@ export const list = [
 //     quantity: number
 //   }[]
 // }[] = []
+
+export const shoppingHistory = [
+  {
+    month: 'August 2020',
+    list: [
+      {
+        shopping_name: 'Grocery List',
+        updated_at: 'TZ',
+        status: 'complete',
+      },
+      {
+        shopping_name: 'Grocery List',
+        updated_at: 'TZ',
+        status: 'complete',
+      },
+    ],
+  },
+]

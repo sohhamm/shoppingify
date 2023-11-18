@@ -30,8 +30,14 @@ export default function App() {
           <Route path="/add" component={AddItem} />
           <Route path="/:itemId" component={ItemDetails} />
         </Route>
-        <Route path="/history" component={History} />
-        <Route path="/stats" component={Stats} />
+        <Route path="/history" component={History}>
+          <Route path="/" component={ShoppingList} />
+          <Route path="/add" component={AddItem} />
+        </Route>
+        <Route path="/stats" component={Stats}>
+          <Route path="/" component={ShoppingList} />
+          <Route path="/add" component={AddItem} />
+        </Route>
       </Route>
     </Routes>
   )

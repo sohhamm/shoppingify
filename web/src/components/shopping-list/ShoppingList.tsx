@@ -46,7 +46,7 @@ export default function ShoppingList({}: ShoppingListProps) {
 
         <div class={classes.addItem}>
           <div class={classes.addItemText}>Didn’t find what you need?</div>
-          <A href="/items/add">
+          <A href="add">
             <button class={classes.addItemCTA}>Add item</button>
           </A>
         </div>

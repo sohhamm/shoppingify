@@ -1,8 +1,15 @@
-import {Component} from 'solid-js'
+import {Outlet} from '@solidjs/router'
+import ContentContainer from '../../layout/ContentContainer'
+import InnerContainer from '../../layout/InnerContainer'
 import classes from './stats.module.css'
 
-const Stats: Component<{}> = () => {
-  return <div class={classes.box}></div>
+export default function Stats() {
+  return (
+    <InnerContainer>
+      <ContentContainer>
+        <main class={classes.box}></main>
+      </ContentContainer>
+      <Outlet />
+    </InnerContainer>
+  )
 }
-
-export default Stats
