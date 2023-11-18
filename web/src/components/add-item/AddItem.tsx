@@ -5,7 +5,6 @@ import {SubmitHandler, createForm, valiForm} from '@modular-forms/solid'
 import {createMemo, createSignal, createUniqueId, For, Show} from 'solid-js'
 import {ChevronDown, X} from 'lucide-solid'
 import {AddItemSchema, type TAddItem} from './schema'
-import {A} from '@solidjs/router'
 
 const comboboxData = [
   {category: 'Fruits and vegetables', category_id: '1'},
@@ -166,9 +165,10 @@ export default function AddItem() {
         </Field>
         <div class={classes.footer}>
           <div class={classes.ctaBox}>
-            <A href="/items">
-              <button class={classes.ctaCancel}>cancel</button>
-            </A>
+            <button class={classes.ctaCancel} onClick={() => history.back()}>
+              cancel
+            </button>
+
             <button type="submit" class={classes.ctaSave}>
               Save
             </button>

@@ -263,14 +263,33 @@ export const shoppingHistory = [
     month: 'August 2020',
     list: [
       {
+        shopping_id: '1',
         shopping_name: 'Grocery List',
         updated_at: 'TZ',
-        status: 'complete',
+        status: 'completed',
       },
       {
+        shopping_id: '2',
         shopping_name: 'Grocery List',
         updated_at: 'TZ',
-        status: 'complete',
+        status: 'cancelled',
+      },
+    ],
+  },
+  {
+    month: 'June 2020',
+    list: [
+      {
+        shopping_id: '1',
+        shopping_name: 'Grocery List',
+        updated_at: 'TZ',
+        status: 'completed',
+      },
+      {
+        shopping_id: '2',
+        shopping_name: 'Grocery List',
+        updated_at: 'TZ',
+        status: 'cancelled',
       },
     ],
   },
