@@ -4,8 +4,8 @@ import {normalizeProps, useMachine} from '@zag-js/solid'
 import {SubmitHandler, createForm, valiForm} from '@modular-forms/solid'
 import {createMemo, createSignal, createUniqueId, For, Show} from 'solid-js'
 import {ChevronDown, X} from 'lucide-solid'
-import {setStore} from '../../store'
 import {AddItemSchema, type TAddItem} from './schema'
+import {A} from '@solidjs/router'
 
 const comboboxData = [
   {category: 'Fruits and vegetables', category_id: '1'},
@@ -53,10 +53,6 @@ export default function AddItem() {
   )
 
   const comboboxApi = createMemo(() => combobox.connect(state, send, normalizeProps))
-
-  const handleCancel = () => {
-    setStore('aside', 'addingNewItem', false)
-  }
 
   return (
     <div class={classes.box}>
@@ -170,9 +166,9 @@ export default function AddItem() {
         </Field>
         <div class={classes.footer}>
           <div class={classes.ctaBox}>
-            <button class={classes.ctaCancel} onClick={handleCancel}>
-              cancel
-            </button>
+            <A href="/items">
+              <button class={classes.ctaCancel}>cancel</button>
+            </A>
             <button type="submit" class={classes.ctaSave}>
               Save
             </button>

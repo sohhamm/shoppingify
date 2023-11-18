@@ -1,7 +1,6 @@
 .box {
   padding: 27px 44px;
-  height: 100vh;
-  overflow-y: scroll;
+  height: 100%;
   position: relative;
 }
 

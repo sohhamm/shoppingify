@@ -1,17 +1,37 @@
-import Items from './pages/items/Items'
+import Items from './pages/items/ItemsPage'
 import History from './pages/history/History'
 import Stats from './pages/stats/Stats'
 import Layout from './layout/Layout'
 import {Routes, Route, Navigate} from '@solidjs/router'
+import ShoppingList from './components/shopping-list/ShoppingList'
+import AddItem from './components/add-item/AddItem'
+import ItemDetails from './components/item-details/ItemDetails'
+
+// export default function App() {
+//   return (
+//     <Routes>
+//       <Route path="/" component={Layout}>
+//         <Route path="/" element={<Navigate href={() => '/items'} />} />;
+//         <Route path="/items" component={Items} />
+//         <Route path="/history" component={History} />
+//         <Route path="/stats" component={Stats} />
+//       </Route>
+//     </Routes>
+//   )
+// }
 
 export default function App() {
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route path='/' element={<Navigate href={() => '/items'} />} />;
-        <Route path='/items' element={<Items />} />
-        <Route path='/history' element={<History />} />
-        <Route path='/stats' element={<Stats />} />
+      <Route path="/" component={Layout}>
+        <Route path="/" element={<Navigate href={() => '/items'} />} />;
+        <Route path="/items" component={Items}>
+          <Route path="/" component={ShoppingList} />
+          <Route path="/add" component={AddItem} />
+          <Route path="/:itemId" component={ItemDetails} />
+        </Route>
+        <Route path="/history" component={History} />
+        <Route path="/stats" component={Stats} />
       </Route>
     </Routes>
   )

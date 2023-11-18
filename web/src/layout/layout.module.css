@@ -2,17 +2,34 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-columns: 95px 1fr 390px;
+  grid-template-columns: 95px 1fr;
 }
 
+/* inner container */
+.innerContainer {
+  display: grid;
+  grid-template-columns: 1fr 390px;
+  height: 100dvh;
+}
+/* inner container end */
+
+/* content container */
 .content {
   background-color: #fafafe;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
+/* content container end */
+
+/* aside container */
+.aside {
+  overflow-y: scroll;
+  width: 390px;
+}
+/* aside container end */
 
 /* sidebar */
-.box,
+.sidebarBox,
 .menus {
   display: flex;
   flex-direction: column;
@@ -20,13 +37,12 @@
   align-items: center;
 }
 
-.box {
+.sidebarBox {
   padding-top: 52.5px;
   padding-bottom: 35px;
   height: 100vh;
   width: 100%;
-  /* overflow-y: hidden; */
-  overflow: none;
+  overflow: hidden;
 }
 
 .menus {
@@ -78,6 +94,4 @@
   font-weight: 500;
 }
 
-/* aside */
-/* .aside {
-} */
+/* sidebar end */

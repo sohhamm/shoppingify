@@ -1,9 +1,9 @@
 .box {
+  height: 100%;
   overflow-y: scroll;
   background: #fff0de;
   padding: 45px;
   padding-bottom: 150px;
-  height: 100vh;
 }
 
 .header {

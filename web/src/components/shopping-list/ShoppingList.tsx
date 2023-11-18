@@ -1,14 +1,14 @@
+import EmptyList from './EmptyList'
 import classes from './shopping-list.module.css'
+import {A} from '@solidjs/router'
 import {For, Match, Show, Switch, createSignal, onMount} from 'solid-js'
 import {Pencil, Trash, Minus, Plus} from 'lucide-solid'
-import {setStore} from '../../store'
 import {list} from '../../service/item'
-import EmptyList from './EmptyList'
 
 interface ShoppingListProps {}
 
 export default function ShoppingList({}: ShoppingListProps) {
-  const [editing, setEditing] = createSignal(true)
+  const [editing, setEditing] = createSignal(false)
   const [inputName, setInputName] = createSignal('')
   const [name, setName] = createSignal('Shopping List')
 
@@ -18,10 +18,6 @@ export default function ShoppingList({}: ShoppingListProps) {
     // todo when the shopping list already has name, comes from db,
     // if(list.name) setEditing(false)
   })
-
-  const handleAddItem = () => {
-    setStore('aside', 'addingNewItem', true)
-  }
 
   const handleSaveName = () => {
     // optimistic mutation
@@ -50,9 +46,9 @@ export default function ShoppingList({}: ShoppingListProps) {
 
         <div class={classes.addItem}>
           <div class={classes.addItemText}>Didn’t find what you need?</div>
-          <button class={classes.addItemCTA} onClick={handleAddItem}>
-            Add item
-          </button>
+          <A href="/items/add">
+            <button class={classes.addItemCTA}>Add item</button>
+          </A>
         </div>
       </div>
 

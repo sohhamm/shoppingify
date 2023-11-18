@@ -4,31 +4,30 @@ import classes from './layout.module.css'
 import {A} from '@solidjs/router'
 import {List, History, LineChart, ShoppingCart} from 'lucide-solid'
 import {For, createSignal} from 'solid-js'
-import type {Component} from 'solid-js'
 
-const Sidebar: Component<{}> = () => {
+export default function Sidebar() {
   const [cartNo, _setCartNo] = createSignal(3)
 
   const links = [
     {
       href: '/items',
-      icon: <List size={26} color='#454545' />,
+      icon: <List size={26} color="#454545" />,
       tooltip: 'item',
     },
     {
       href: '/history',
-      icon: <History size={26} color='#454545' />,
+      icon: <History size={26} color="#454545" />,
       tooltip: 'history',
     },
     {
       href: '/stats',
-      icon: <LineChart size={26} color='#454545' />,
+      icon: <LineChart size={26} color="#454545" />,
       tooltip: 'statistics',
     },
   ]
 
   return (
-    <div class={classes.box}>
+    <div class={classes.sidebarBox}>
       <div>
         <Logo />
       </div>
@@ -44,12 +43,10 @@ const Sidebar: Component<{}> = () => {
         </For>
       </div>
       <div class={classes.cart}>
-        <ShoppingCart size={20} color='white' class={classes.cartIcon} />
+        <ShoppingCart size={20} color="white" class={classes.cartIcon} />
 
         <div class={classes.cartNo}>{cartNo()}</div>
       </div>
     </div>
   )
 }
-
-export default Sidebar
