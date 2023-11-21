@@ -1,0 +1,72 @@
+.topSpends {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 64px;
+  margin-bottom: 64px;
+}
+
+.box h1 {
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.itemLabelBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itemLabelBox > label {
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.itemLabelBox > p {
+  color: #000;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.topSpends > div {
+  width: 100%;
+}
+
+.itemProgress,
+.itemProgress2 {
+  height: 6px;
+  border-radius: 4px;
+  --bg-color: #e0e0e0;
+  width: 100%;
+}
+
+.itemProgress {
+  --color: var(--primary-color);
+}
+
+.itemProgress2 {
+  --color: var(--secondary-color);
+}
+
+.itemProgress::-webkit-progress-bar {
+  border-radius: 4px;
+  background-color: var(--bg-color);
+}
+
+.itemProgress::-webkit-progress-value {
+  border-radius: 4px;
+  background-color: var(--color);
+}
+
+.itemProgress::-moz-progress-bar {
+  border-radius: 4px;
+  background-color: var(--color);
+}

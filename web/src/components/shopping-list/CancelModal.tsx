@@ -14,7 +14,6 @@ export default function CancelModal() {
       <button {...api().triggerProps} class={classes.ctaCancel}>
         cancel
       </button>
-
       <Show when={api().isOpen}>
         <Portal>
           <div {...api().backdropProps} />

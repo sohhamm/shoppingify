@@ -294,3 +294,43 @@ export const shoppingHistory = [
     ],
   },
 ]
+
+export const topSpends = {
+  items: [
+    {
+      item_id: '1',
+      name: 'Banana',
+      percentage: 12,
+    },
+    {
+      item_id: '2',
+      name: 'Rice',
+      percentage: 10,
+    },
+    {
+      item_id: '3',
+      name: 'Chicken 1kg',
+      percentage: 8,
+    },
+  ],
+
+  categories: [
+    {
+      category_id: '1',
+      name: 'Fruit and vegetables',
+      percentage: 23,
+    },
+    {
+      category_id: '2',
+      name: 'Meat and Fish',
+      percentage: 14,
+    },
+    {
+      category_id: '3',
+      name: 'Pets',
+      percentage: 11,
+    },
+  ],
+}
+
+export const monthlySpends = []
