@@ -2,18 +2,21 @@
   "name": "server",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "generate": "bunx drizzle-kit generate:sqlite --out ./src/db/migrations --breakpoints --schema=./src/db/schema/index.ts",
-    "migrate": "bun run src/db/migrate.ts"
+    "migrate": "bun run src/db/migrate.ts",
+    "studio": "bunx drizzle-kit studio --port 3333",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@libsql/client": "^0.3.6",
     "drizzle-orm": "^0.28.6",
     "drizzle-typebox": "^0.1.1",
-    "elysia": "latest"
+    "elysia": "latest",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.7",
     "bun-types": "latest",
     "drizzle-kit": "^0.19.13"
   },

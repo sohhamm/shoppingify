@@ -1,6 +1,6 @@
 import Elysia from 'elysia'
 import {db} from '../db'
-import {insertItemSchema, item} from '../db/schema/item'
+import {insertItemSchema, item} from '../db/schema'
 
 export const itemRoutes = (app: Elysia) =>
   app.group('/items', app =>
