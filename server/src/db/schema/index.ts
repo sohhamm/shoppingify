@@ -8,7 +8,6 @@ export const item = sqliteTable('item', {
     .$defaultFn(() => uuidv4())
     .primaryKey(),
   name: text('name').notNull(),
-  category: text('category').notNull().default('No Category'),
   image: text('image'),
   note: text('note'),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
@@ -23,7 +22,11 @@ export const category = sqliteTable('category', {
     .primaryKey(),
   category_name: text('category_name').notNull(),
   category_desc: text('category_desc'),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 })
+
+export const selectCategorySchema = createSelectSchema(category)
+export const insertCategorySchema = createInsertSchema(category)
 
 export const itemCategory = sqliteTable('item_category', {
   item_id: text('item_id')

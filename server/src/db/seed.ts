@@ -1,3 +1,67 @@
+import {db} from '.'
+import {category} from './schema'
+
+const categories: Category[] = [
+  {
+    category_name: 'Diary & Eggs',
+  },
+  {
+    category_name: 'Fruits & Vegetables',
+  },
+  {
+    category_name: 'Meat & Seafood',
+  },
+  {
+    category_name: 'Bakery & Bread',
+  },
+  {
+    category_name: 'Pantry Staples',
+  },
+  {
+    category_name: 'Beverages',
+  },
+  {
+    category_name: 'Frozen Foods',
+  },
+  {
+    category_name: 'Snacks & Sweets',
+  },
+  {
+    category_name: 'Cleaning Supplies',
+  },
+  {
+    category_name: 'Personal Care',
+  },
+  {
+    category_name: 'Baby & Kids',
+  },
+  {
+    category_name: 'Health & Wellness',
+  },
+  {
+    category_name: 'Pet Supplies',
+  },
+]
+
+async function seedCategories() {
+  try {
+    console.log('seed started')
+    await db
+      .insert(category)
+      .values(categories)
+      .onConflictDoNothing({target: category.category_name})
+    console.log('Successfully seeded category table with default values')
+    process.exit(0)
+  } catch (error) {
+    console.error('Error seeding data: ', error)
+    process.exit(1)
+  }
+}
+
+seedCategories()
+
+type Category = typeof category.$inferInsert
+
 // Dairy & Eggs
 // Milk
 // Cheese

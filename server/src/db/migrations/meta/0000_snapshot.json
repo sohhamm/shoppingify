@@ -1,18 +1,56 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "8ee71e22-c430-436a-8c7f-45265d8adb40",
+  "id": "a56045b0-e5ea-485e-ab5e-e6ddb8404530",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
+    "category": {
+      "name": "category",
+      "columns": {
+        "category_id": {
+          "name": "category_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category_name": {
+          "name": "category_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category_desc": {
+          "name": "category_desc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "item": {
       "name": "item",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": true
+          "autoincrement": false
         },
         "name": {
           "name": "name",
@@ -20,14 +58,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
-        },
-        "category": {
-          "name": "category",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'No Category'"
         },
         "image": {
           "name": "image",
@@ -54,6 +84,56 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "item_category": {
+      "name": "item_category",
+      "columns": {
+        "item_id": {
+          "name": "item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "item_category_item_id_item_item_id_fk": {
+          "name": "item_category_item_id_item_item_id_fk",
+          "tableFrom": "item_category",
+          "tableTo": "item",
+          "columnsFrom": [
+            "item_id"
+          ],
+          "columnsTo": [
+            "item_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "item_category_category_id_category_category_id_fk": {
+          "name": "item_category_category_id_category_category_id_fk",
+          "tableFrom": "item_category",
+          "tableTo": "category",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "category_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
