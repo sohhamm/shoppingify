@@ -1,10 +1,10 @@
-import Elysia, {t} from 'elysia'
+import Elysia from 'elysia'
 import {db} from '../db'
 import {insertItemSchema, item, itemCategory} from '../db/schema'
 import {eq} from 'drizzle-orm'
 
 export const itemRoutes = (app: Elysia) =>
-  app.group('/item', app =>
+  app.group('/items', app =>
     app
       .post(
         '/',
@@ -43,7 +43,17 @@ export const itemRoutes = (app: Elysia) =>
           .map(cat => ({
             category_id: cat.category_id,
             category_name: cat.category_name,
-            items: cat.itemCategory.map(i => ({item_id: i.item.item_id, name: i.item.name})),
+            items: cat.itemCategory.map(
+              (i: {
+                item: {
+                  name: string
+                  created_at: string | null
+                  item_id: string
+                  image: string | null
+                  note: string | null
+                }
+              }) => ({item_id: i.item.item_id, name: i.item.name}),
+            ),
           }))
       })
       .get('/:id', async context => {

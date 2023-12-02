@@ -165,7 +165,13 @@ export default function AddItem() {
         </Field>
         <div class={classes.footer}>
           <div class={classes.ctaBox}>
-            <button class={classes.ctaCancel} onClick={() => history.back()}>
+            <button
+              class={classes.ctaCancel}
+              onClick={() => {
+                // @ts-ignore
+                history.back()
+              }}
+            >
               cancel
             </button>
 

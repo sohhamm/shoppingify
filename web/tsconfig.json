@@ -20,10 +20,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
 
     // plugin types
     "types": ["vite-plugin-solid-svg/types-component-solid"]
   },
   "include": ["src"],
+  "exclude": ["node_modules", "server"],
   "references": [{"path": "./tsconfig.node.json"}]
 }

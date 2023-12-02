@@ -7,13 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:generate": "bunx drizzle-kit generate:sqlite --out ./src/db/migrations --breakpoints --schema=./src/db/schema/index.ts",
     "db:migrate": "bun run src/db/migrate.ts",
-    "db:seed": "bun run src/db/seed.ts"
+    "db:seed": "bun run src/db/seed.ts",
+    "build": "bun build ./src/index.ts --outdir ./build"
   },
   "dependencies": {
+    "@elysiajs/cors": "^0.7.2",
     "@libsql/client": "^0.3.6",
     "drizzle-orm": "^0.28.6",
     "drizzle-typebox": "^0.1.1",
-    "elysia": "latest",
+    "elysia": "^0.7.29",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
