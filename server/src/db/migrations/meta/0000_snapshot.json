@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "a56045b0-e5ea-485e-ab5e-e6ddb8404530",
+  "id": "bebb428c-3a50-425d-bbeb-34142f6e133c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "category": {
@@ -134,7 +134,14 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "item_category_item_id_category_id_pk": {
+          "columns": [
+            "category_id",
+            "item_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     }
   },
