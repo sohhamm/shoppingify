@@ -5,6 +5,7 @@ import {SubmitHandler, createForm, valiForm} from '@modular-forms/solid'
 import {createMemo, createSignal, createUniqueId, For, Show} from 'solid-js'
 import {ChevronDown, X} from 'lucide-solid'
 import {AddItemSchema, type TAddItem} from './schema'
+import {createItemMutation} from '../../service/item'
 
 const comboboxData = [
   {category: 'Fruits and vegetables', category_id: '1'},
@@ -19,11 +20,17 @@ export default function AddItem() {
     validate: valiForm(AddItemSchema),
   })
 
+  const addItem = createItemMutation()
+
   const handleSubmit: SubmitHandler<TAddItem> = (values, event) => {
     // prevent browser refresh
     event.preventDefault()
     // todo Runs on client
     console.log(values)
+
+    addItem.mutate(values)
+    // @ts-ignore
+    window.history.back()
   }
 
   const collection = createMemo(() =>

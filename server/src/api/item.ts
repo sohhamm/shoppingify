@@ -57,8 +57,28 @@ export const itemRoutes = (app: Elysia) =>
           }))
       })
       .get('/:id', async context => {
-        const res = await db.select().from(item).where(eq(item.item_id, context.params.id))
-        return res.length ? res[0] : {msg: 'not found'}
+        // const res = await db.select().from(item).where(eq(item.item_id, context.params.id))
+        const res = await db.query.item.findFirst({
+          columns: {
+            created_at: false,
+          },
+          with: {
+            category: {
+              columns: {},
+              with: {
+                category: true,
+              },
+            },
+          },
+          where: eq(item.item_id, context.params.id),
+        })
+        return {
+          ...res,
+          category: undefined,
+          category_id: res?.category.category.category_id,
+          category_name: res?.category.category.category_name,
+          category_desc: res?.category.category.category_desc,
+        }
       })
       .delete('/:id', context => {
         return db

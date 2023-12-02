@@ -1,7 +1,7 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/solid-query'
 import AppRoutes from './AppRoutes'
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,

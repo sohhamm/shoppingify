@@ -1,13 +1,43 @@
-import {createQuery} from '@tanstack/solid-query'
+import {createMutation, createQuery} from '@tanstack/solid-query'
 import {app} from './client'
+import {queryClient} from '../App'
 
-export const createItemQuery = () => {
+export const createItemsQuery = () => {
   return createQuery(() => ({
-    queryKey: ['item'],
+    queryKey: ['items'],
     queryFn: async () => {
       const res = await app.items[''].get()
       if (res.error) throw res.error
       return res.data
+    },
+  }))
+}
+
+export const createItemQuery = (id: string) => {
+  return createQuery(() => ({
+    queryKey: ['items', id],
+    queryFn: async () => {
+      const res = await app.items[id].get()
+      if (res.error) throw res.error
+      return res.data
+    },
+  }))
+}
+
+export const createItemMutation = () => {
+  return createMutation(() => ({
+    mutationFn: async (item: {
+      name: string
+      category_id: string
+      note: string | null
+      image: string | null
+    }) => {
+      const res = await app.items[''].post(item)
+      if (res.error) throw res.error
+      return res.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['items']})
     },
   }))
 }

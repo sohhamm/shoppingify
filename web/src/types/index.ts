@@ -8,10 +8,11 @@ export interface Category extends BaseCategory {
 }
 
 export interface Item {
-  id: string
+  item_id: string
   name: string
-  image: string
-  note: string
+  image: string | null
+  note: string | null
+  created_at: string
 }
 
 export interface ItemCategory extends Item {

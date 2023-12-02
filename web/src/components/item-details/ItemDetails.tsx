@@ -1,12 +1,18 @@
 // import {unwrap} from 'solid-js/store'
-import {setStore, store} from '../../store'
 import classes from './item-details.module.css'
+import {useParams} from '@solidjs/router'
+import {createItemQuery} from '../../service/item'
 import {MoveLeft} from 'lucide-solid'
-import {Show} from 'solid-js'
+import {Match, Show, Switch} from 'solid-js'
 
 export default function ItemDetails() {
+  const itemId = useParams().itemId
+
+  const itemQuery = createItemQuery(itemId)
+
   const handleBack = () => {
-    setStore('item', null)
+    // @ts-ignore
+    window.history.back()
   }
 
   const handleDeleteItem = () => {
@@ -17,32 +23,43 @@ export default function ItemDetails() {
     //  todo: mutation with item_id
   }
 
-  if (!store.item) return null
-
   return (
     <div class={classes.box}>
       <button class={classes.btn} onClick={handleBack}>
-        <MoveLeft color='#F9A109' size={20} /> back
+        <MoveLeft color="#F9A109" size={20} /> back
       </button>
-      <img src={store.item.image} alt={store.item.name} class={classes.itemImg} />
-      <div class={classes.innerBox}>
-        <div>
-          <p class={classes.title}>name</p>
-          <p class={classes.name}>{store.item.name}</p>
-        </div>
 
-        <div>
-          <p class={classes.title}>category</p>
-          <p class={classes.desc}>{store.item.category}</p>
-        </div>
+      <Switch>
+        <Match when={itemQuery.status === 'pending'}>Loading...</Match>
+        <Match when={itemQuery.error instanceof Error}>
+          <span>Error: {(itemQuery.error as Error).message}</span>
+        </Match>
+        <Match when={itemQuery.data !== undefined}>
+          <img
+            src={itemQuery.data?.image || '/empty-item-img.png'}
+            alt={itemQuery.data?.name}
+            class={classes.itemImg}
+          />
+          <div class={classes.innerBox}>
+            <div>
+              <p class={classes.title}>name</p>
+              <p class={classes.name}>{itemQuery.data?.name}</p>
+            </div>
 
-        <Show when={!!store.item.note}>
-          <div>
-            <p class={classes.title}>note</p>
-            <p class={classes.desc}>{store.item.note}</p>
+            <div>
+              <p class={classes.title}>category</p>
+              <p class={classes.desc}>{itemQuery.data?.category_name}</p>
+            </div>
+
+            <Show when={!!itemQuery.data?.note}>
+              <div>
+                <p class={classes.title}>note</p>
+                <p class={classes.desc}>{itemQuery.data?.note}</p>
+              </div>
+            </Show>
           </div>
-        </Show>
-      </div>
+        </Match>
+      </Switch>
 
       <div class={classes.cta}>
         <button class={classes.ctaDel} onClick={handleDeleteItem}>
