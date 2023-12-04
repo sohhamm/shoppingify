@@ -6,27 +6,27 @@ import {createMemo, createSignal, createUniqueId, For, Show} from 'solid-js'
 import {ChevronDown, X} from 'lucide-solid'
 import {AddItemSchema, type TAddItem} from './schema'
 import {createItemMutation} from '../../service/item'
-
-const comboboxData = [
-  {category: 'Fruits and vegetables', category_id: '1'},
-  {category: 'Meat and fish', category_id: '2'},
-  {category: 'Beverages', category_id: '3'},
-]
+import {createCategoryQuery} from '../../service/category'
 
 export default function AddItem() {
-  const [options, setOptions] = createSignal(comboboxData)
-
   const [_itemForm, {Form, Field, FieldArray: _fieldArray}] = createForm<TAddItem>({
     validate: valiForm(AddItemSchema),
   })
 
+  const [categorySearch, setCategorySearch] = createSignal('')
+
   const addItem = createItemMutation()
+
+  const categoryOptions = createCategoryQuery({search: categorySearch()})
+  // const [options, setOptions] = createSignal(categoryOptions.data)
 
   const handleSubmit: SubmitHandler<TAddItem> = (values, event) => {
     // prevent browser refresh
     event.preventDefault()
     // todo Runs on client
     console.log(values)
+
+    debugger
 
     addItem.mutate(values)
     // @ts-ignore
@@ -35,25 +35,27 @@ export default function AddItem() {
 
   const collection = createMemo(() =>
     combobox.collection({
-      items: options(),
+      items: categoryOptions.data || [],
       itemToValue: item => item.category_id,
-      itemToString: item => item.category,
+      itemToString: item => item.category_name,
     }),
   )
 
   const [state, send] = useMachine(
     combobox.machine({
+      name: 'category_id',
       id: createUniqueId(),
       collection: collection(),
-      onOpenChange(details) {
-        if (!details.open) return
-        setOptions(comboboxData)
+      onOpenChange(_details) {
+        // if (!details.open) return
+        // setOptions(comboboxData)
       },
       onInputValueChange({value}) {
-        const filtered = comboboxData.filter(item =>
-          item.category.toLowerCase().includes(value.toLowerCase()),
-        )
-        setOptions(filtered.length > 0 ? filtered : comboboxData)
+        setCategorySearch(value.toLowerCase())
+        // const filtered = comboboxData.filter(item =>
+        //   item.category.toLowerCase().includes(value.toLowerCase()),
+        // )
+        // setOptions(filtered.length > 0 ? filtered : comboboxData)
       },
     }),
   )
@@ -120,12 +122,12 @@ export default function AddItem() {
                 </div>
               </div>
               <div {...comboboxApi().positionerProps}>
-                <Show when={options().length > 0}>
+                <Show when={categoryOptions.data && categoryOptions.data.length > 0}>
                   <div {...comboboxApi().contentProps} class={classes.categories}>
-                    <For each={options()}>
+                    <For each={categoryOptions.data}>
                       {item => (
                         <div {...comboboxApi().getItemProps({item})} class={classes.category}>
-                          {item.category}
+                          {item.category_name}
                         </div>
                       )}
                     </For>
