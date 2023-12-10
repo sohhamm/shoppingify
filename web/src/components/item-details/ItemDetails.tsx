@@ -3,12 +3,14 @@ import classes from './item-details.module.css'
 import {useParams} from '@solidjs/router'
 import {createItemQuery} from '../../service/item'
 import {MoveLeft} from 'lucide-solid'
-import {Match, Show, Switch} from 'solid-js'
+import {Match, Show, Switch, createSignal} from 'solid-js'
 
 export default function ItemDetails() {
-  const itemId = useParams().itemId
+  // const itemId = useParams().itemId
 
-  const itemQuery = createItemQuery(itemId)
+  const [id, _setId] = createSignal(useParams().itemId)
+
+  const itemQuery = createItemQuery(id)
 
   const handleBack = () => {
     // @ts-ignore

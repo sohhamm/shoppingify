@@ -23,6 +23,6 @@ export const categoryRoutes = (app: Elysia) =>
             return db.select().from(category)
           }
         },
-        {query: t.Object({search: t.Optional(t.String())})},
+        {query: t.Optional(t.Object({search: t.Optional(t.String())}))},
       ),
   )

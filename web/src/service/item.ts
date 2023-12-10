@@ -13,11 +13,11 @@ export const createItemsQuery = () => {
   }))
 }
 
-export const createItemQuery = (id: string) => {
+export const createItemQuery = (id: () => string) => {
   return createQuery(() => ({
-    queryKey: ['items', id],
+    queryKey: ['items', id()],
     queryFn: async () => {
-      const res = await app.items[id].get()
+      const res = await app.items[id()].get()
       if (res.error) throw res.error
       return res.data
     },

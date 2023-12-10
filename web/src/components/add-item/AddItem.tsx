@@ -1,9 +1,9 @@
 import * as combobox from '@zag-js/combobox'
 import classes from './add-item.module.css'
 import {normalizeProps, useMachine} from '@zag-js/solid'
-import {SubmitHandler, createForm, valiForm} from '@modular-forms/solid'
+import {SubmitHandler, createForm, valiForm, setValue} from '@modular-forms/solid'
 import {createMemo, createSignal, createUniqueId, For, Show} from 'solid-js'
-import {ChevronDown, X} from 'lucide-solid'
+import {ChevronDown, ChevronUp} from 'lucide-solid'
 import {AddItemSchema, type TAddItem} from './schema'
 import {createItemMutation} from '../../service/item'
 import {createCategoryQuery} from '../../service/category'
@@ -13,21 +13,14 @@ export default function AddItem() {
     validate: valiForm(AddItemSchema),
   })
 
-  const [categorySearch, setCategorySearch] = createSignal('')
-
   const addItem = createItemMutation()
 
-  const categoryOptions = createCategoryQuery({search: categorySearch()})
-  // const [options, setOptions] = createSignal(categoryOptions.data)
+  const categoryOptions = createCategoryQuery()
+  const [options, setOptions] = createSignal(categoryOptions.data || [])
 
   const handleSubmit: SubmitHandler<TAddItem> = (values, event) => {
     // prevent browser refresh
     event.preventDefault()
-    // todo Runs on client
-    console.log(values)
-
-    debugger
-
     addItem.mutate(values)
     // @ts-ignore
     window.history.back()
@@ -35,9 +28,13 @@ export default function AddItem() {
 
   const collection = createMemo(() =>
     combobox.collection({
-      items: categoryOptions.data || [],
-      itemToValue: item => item.category_id,
-      itemToString: item => item.category_name,
+      items: options(),
+      itemToValue(item) {
+        return item.category_id
+      },
+      itemToString(item) {
+        return item.category_name
+      },
     }),
   )
 
@@ -46,16 +43,19 @@ export default function AddItem() {
       name: 'category_id',
       id: createUniqueId(),
       collection: collection(),
-      onOpenChange(_details) {
-        // if (!details.open) return
-        // setOptions(comboboxData)
+      onOpenChange(details) {
+        if (!details.open) return
+        setOptions(categoryOptions.data || [])
+      },
+      onValueChange(details) {
+        setValue(_itemForm, 'category_id', details.value[0])
       },
       onInputValueChange({value}) {
-        setCategorySearch(value.toLowerCase())
-        // const filtered = comboboxData.filter(item =>
-        //   item.category.toLowerCase().includes(value.toLowerCase()),
-        // )
-        // setOptions(filtered.length > 0 ? filtered : comboboxData)
+        const filtered = categoryOptions.data?.filter((item: any) =>
+          item.category_name.toLowerCase().includes(value.toLowerCase()),
+        )
+        console.log(filtered)
+        setOptions(filtered?.length && filtered.length > 0 ? filtered : categoryOptions.data!)
       },
     }),
   )
@@ -99,38 +99,42 @@ export default function AddItem() {
                 </label>
                 <div {...comboboxApi().controlProps} class={classes.inputBoxCategory}>
                   <input
-                    {...props}
                     {...comboboxApi().inputProps}
+                    {...props}
                     class={classes.inputText}
                     placeholder="Enter a category"
+                    value={options()?.find(c => c.category_id === field.value)?.category_name}
                   />
 
                   <Show when={!comboboxApi().isOpen}>
-                    {/* @ts-ignore */}
                     <span {...comboboxApi().triggerProps} class={classes.categoryDropdownIcon}>
                       <ChevronDown color="#828282" size={24} />
                     </span>
                   </Show>
 
                   <Show when={comboboxApi().isOpen}>
-                    {/* @ts-ignore */}
                     <span {...comboboxApi().triggerProps} class={classes.categoryDropdownIcon}>
-                      <X color="#828282" size={24} />
+                      <ChevronUp color="#828282" size={24} />
                     </span>
                   </Show>
                   {field.error && <div>{field.error}</div>}
                 </div>
               </div>
               <div {...comboboxApi().positionerProps}>
-                <Show when={categoryOptions.data && categoryOptions.data.length > 0}>
+                <Show when={options() && options().length > 0}>
                   <div {...comboboxApi().contentProps} class={classes.categories}>
-                    <For each={categoryOptions.data}>
+                    <For each={options()}>
                       {item => (
                         <div {...comboboxApi().getItemProps({item})} class={classes.category}>
                           {item.category_name}
                         </div>
                       )}
                     </For>
+                  </div>
+                </Show>
+                <Show when={!options()?.length}>
+                  <div {...comboboxApi().contentProps} class={classes.categories}>
+                    <div>No categories found</div>
                   </div>
                 </Show>
               </div>

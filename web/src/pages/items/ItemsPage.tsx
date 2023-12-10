@@ -5,7 +5,7 @@ import {Outlet, useNavigate} from '@solidjs/router'
 import {For, Match, Show, Switch, createSignal} from 'solid-js'
 import {Plus, X, Search} from 'lucide-solid'
 import {createItemsQuery} from '../../service/item'
-import type {BaseCategory, Item} from '../../types'
+import type {BaseCategory} from '../../types'
 
 export default function ItemsPage() {
   const [search, setSearch] = createSignal('')
@@ -13,8 +13,8 @@ export default function ItemsPage() {
 
   const itemQuery = createItemsQuery()
 
-  const handleViewItem = (item: Item, _category: BaseCategory) => {
-    navigate(`/items/${item.item_id}`)
+  const handleViewItem = (item: {item_id: string; name: string}, _category: BaseCategory) => {
+    navigate(`/items/${item.item_id}`, {replace: true})
   }
 
   return (
