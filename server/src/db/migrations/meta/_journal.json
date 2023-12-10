@@ -8,6 +8,13 @@
       "when": 1701498314780,
       "tag": "0000_bored_nemesis",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1702202121486,
+      "tag": "0001_abandoned_namorita",
+      "breakpoints": true
     }
   ]
 }

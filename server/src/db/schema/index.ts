@@ -1,4 +1,4 @@
-import {primaryKey, sqliteTable, text} from 'drizzle-orm/sqlite-core'
+import {integer, primaryKey, sqliteTable, text} from 'drizzle-orm/sqlite-core'
 import {relations, sql} from 'drizzle-orm'
 import {v4 as uuidv4} from 'uuid'
 import {createInsertSchema, createSelectSchema} from 'drizzle-typebox'
@@ -43,6 +43,28 @@ export const itemCategory = sqliteTable(
   t => ({pk: primaryKey(t.item_id, t.category_id)}),
 )
 
+export const cart = sqliteTable('cart', {
+  cart_id: text('cart_id')
+    .$defaultFn(() => uuidv4())
+    .primaryKey(),
+  name: text('name').default('Shopping List').notNull(),
+  // enum: ongoing, completed, cancelled
+  status: text('status', {enum: ['ongoing', 'completed', 'cancelled']})
+    .default('ongoing')
+    .notNull(),
+  created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updated_at: text('updated_at').default(sql`CURRENT_TIMESTAMP`),
+})
+
+export const selectCartSchema = createSelectSchema(cart)
+export const createCartSchema = createInsertSchema(cart)
+
+export const cartItem = sqliteTable('cart_item', {
+  cart_id: text('cart_id').references(() => cart.cart_id),
+  item_id: text('item_id').references(() => item.item_id),
+  quantity: integer('quantity').notNull(),
+})
+
 // relations
 
 export const itemRelations = relations(item, ({many, one}) => ({
@@ -51,6 +73,7 @@ export const itemRelations = relations(item, ({many, one}) => ({
     fields: [item.item_id],
     references: [itemCategory.item_id],
   }),
+  cartItem: many(cartItem),
 }))
 
 export const categoryRelations = relations(category, ({many}) => ({
@@ -65,5 +88,20 @@ export const itemCategoryRelation = relations(itemCategory, ({one}) => ({
   category: one(category, {
     fields: [itemCategory.category_id],
     references: [category.category_id],
+  }),
+}))
+
+export const cartRelations = relations(cart, ({many}) => ({
+  cartItem: many(cartItem),
+}))
+
+export const cartItemRelations = relations(cartItem, ({one}) => ({
+  item: one(item, {
+    fields: [cartItem.item_id],
+    references: [item.item_id],
+  }),
+  cart: one(cart, {
+    fields: [cartItem.cart_id],
+    references: [cart.cart_id],
   }),
 }))
