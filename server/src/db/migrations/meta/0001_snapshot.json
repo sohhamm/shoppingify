@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "a615e443-4a6a-41a7-a525-094f5ab08933",
-  "prevId": "bebb428c-3a50-425d-bbeb-34142f6e133c",
+  "id": "be584da1-918c-4744-8b55-e5bfc6aa39b1",
+  "prevId": "e59d4bd6-bc93-4e77-80e9-d12d95b9c1a0",
   "tables": {
     "cart": {
       "name": "cart",
@@ -106,7 +106,14 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "cart_item_cart_id_item_id_pk": {
+          "columns": [
+            "cart_id",
+            "item_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "category": {
@@ -222,7 +229,7 @@
           "columnsTo": [
             "item_id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "item_category_category_id_category_category_id_fk": {
@@ -235,7 +242,7 @@
           "columnsTo": [
             "category_id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },

@@ -25,18 +25,18 @@ export const cartRoutes = (app: Elysia) =>
         '/:id',
         async ({body, params}) => {
           if (body.name) {
-            await db.update(cart).set({name: body.name})
+            await db.update(cart).set({name: body.name}).where(eq(cart.cart_id, params.id))
           }
 
           const res = await db.query.cartItem.findFirst({where: eq(cartItem.item_id, body.item_id)})
 
-          console.log(res?.item_id, 'test')
+          console.log(res)
           let res1
           if (!res?.item_id) {
             res1 = await db
               .insert(cartItem)
               .values({
-                cart_id: res?.cart_id || undefined,
+                cart_id: params.id,
                 item_id: body.item_id,
                 quantity: body.quantity,
               })

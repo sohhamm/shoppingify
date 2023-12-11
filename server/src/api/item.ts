@@ -80,10 +80,12 @@ export const itemRoutes = (app: Elysia) =>
           category_desc: res?.category.category.category_desc,
         }
       })
-      .delete('/:id', context => {
-        return db
-          .delete(item)
-          .where(eq(item.item_id, context.params.id))
-          .returning({item_id: item.item_id})
+      .delete('/:id', async ({params}) => {
+        console.log(params.id)
+        const res = await db.delete(item).where(eq(item.item_id, params.id))
+
+        console.log(res)
+
+        return res
       }),
   )

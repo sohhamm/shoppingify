@@ -35,10 +35,10 @@ export const itemCategory = sqliteTable(
   {
     item_id: text('item_id')
       .notNull()
-      .references(() => item.item_id),
+      .references(() => item.item_id, {onDelete: 'cascade'}),
     category_id: text('category_id')
       .notNull()
-      .references(() => category.category_id),
+      .references(() => category.category_id, {onDelete: 'cascade'}),
   },
   t => ({pk: primaryKey(t.item_id, t.category_id)}),
 )
@@ -59,11 +59,15 @@ export const cart = sqliteTable('cart', {
 export const selectCartSchema = createSelectSchema(cart)
 export const createCartSchema = createInsertSchema(cart)
 
-export const cartItem = sqliteTable('cart_item', {
-  cart_id: text('cart_id').references(() => cart.cart_id),
-  item_id: text('item_id').references(() => item.item_id),
-  quantity: integer('quantity').notNull(),
-})
+export const cartItem = sqliteTable(
+  'cart_item',
+  {
+    cart_id: text('cart_id').references(() => cart.cart_id),
+    item_id: text('item_id').references(() => item.item_id),
+    quantity: integer('quantity').notNull(),
+  },
+  t => ({pk: primaryKey(t.cart_id, t.item_id)}),
+)
 
 // relations
 
