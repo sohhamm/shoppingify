@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "e59d4bd6-bc93-4e77-80e9-d12d95b9c1a0",
+  "id": "d1a28167-0bd8-4129-9b2b-bbbde0b75744",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "cart": {
@@ -229,7 +229,7 @@
           "columnsTo": [
             "item_id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "item_category_category_id_category_category_id_fk": {
@@ -242,7 +242,7 @@
           "columnsTo": [
             "category_id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },

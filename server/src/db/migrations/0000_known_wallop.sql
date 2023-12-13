@@ -34,6 +34,6 @@ CREATE TABLE `item_category` (
 	`item_id` text NOT NULL,
 	`category_id` text NOT NULL,
 	PRIMARY KEY(`category_id`, `item_id`),
-	FOREIGN KEY (`item_id`) REFERENCES `item`(`item_id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`category_id`) REFERENCES `category`(`category_id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`item_id`) REFERENCES `item`(`item_id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`category_id`) REFERENCES `category`(`category_id`) ON UPDATE no action ON DELETE cascade
 );

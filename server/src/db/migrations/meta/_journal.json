@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1702267917358,
-      "tag": "0000_huge_toro",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1702268687086,
-      "tag": "0001_new_hercules",
+      "when": 1702355664096,
+      "tag": "0000_known_wallop",
       "breakpoints": true
     }
   ]
