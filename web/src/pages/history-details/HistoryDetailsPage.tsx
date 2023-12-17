@@ -1,12 +1,12 @@
 import {For} from 'solid-js'
 import classes from './history-details.module.css'
-import {A, Outlet} from '@solidjs/router'
+import {A} from '@solidjs/router'
 import ContentContainer from '../../layout/ContentContainer'
 import InnerContainer from '../../layout/InnerContainer'
 import {shoppingHistory} from '../../service/item'
 import {ChevronRight, CalendarDays} from 'lucide-solid'
 
-export default function HistoryPage() {
+export default function HistoryPage(props) {
   return (
     <InnerContainer>
       <ContentContainer>
@@ -50,7 +50,7 @@ export default function HistoryPage() {
         </main>
       </ContentContainer>
 
-      <Outlet />
+      {props.children}
     </InnerContainer>
   )
 }

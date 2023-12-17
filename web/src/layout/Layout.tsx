@@ -1,12 +1,11 @@
 import Sidebar from './Sidebar'
 import classes from './layout.module.css'
-import {Outlet} from '@solidjs/router'
 
-export default function Layout() {
+export default function Layout(props) {
   return (
     <div class={classes.container}>
       <Sidebar />
-      <Outlet />
+      {props.children}
     </div>
   )
 }

@@ -218,19 +218,13 @@ async function seed() {
       try {
         const cat_id = uuidv4()
         const items = getItemsForCategories(cat.category_name)
-        await db
-          .insert(category)
-          .values({...cat, category_id: cat_id})
-          .returning()
+        await db.insert(category).values({...cat, category_id: cat_id})
 
         for (const i of items) {
           const i_id = uuidv4()
-          await db
-            .insert(item)
-            .values({...i, item_id: i_id})
-            .returning()
+          await db.insert(item).values({...i, item_id: i_id})
 
-          await db.insert(itemCategory).values({category_id: cat_id, item_id: i_id}).returning()
+          await db.insert(itemCategory).values({category_id: cat_id, item_id: i_id})
         }
       } catch (error) {
         console.error('An error occurred while seeding:', error)

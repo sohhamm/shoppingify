@@ -1,4 +1,3 @@
-import {Outlet} from '@solidjs/router'
 import ContentContainer from '../../layout/ContentContainer'
 import InnerContainer from '../../layout/InnerContainer'
 import classes from './stats.module.css'
@@ -6,7 +5,7 @@ import {For, createSignal} from 'solid-js'
 import {SolidApexCharts} from 'solid-apexcharts'
 import {topSpends} from '../../service/item'
 
-export default function Stats() {
+export default function Stats(props) {
   const [options] = createSignal({
     chart: {
       id: 'solidchart-example',
@@ -90,7 +89,7 @@ export default function Stats() {
           </div>
         </main>
       </ContentContainer>
-      <Outlet />
+      {props.children}
     </InnerContainer>
   )
 }

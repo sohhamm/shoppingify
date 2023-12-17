@@ -1,5 +1,4 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/solid-query'
-import AppRoutes from './AppRoutes'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,10 +9,6 @@ export const queryClient = new QueryClient({
   },
 })
 
-export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AppRoutes />
-    </QueryClientProvider>
-  )
+export default function App(props) {
+  return <QueryClientProvider client={queryClient}>{props.children}</QueryClientProvider>
 }
