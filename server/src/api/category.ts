@@ -4,7 +4,7 @@ import {db} from '../db'
 import {like} from 'drizzle-orm'
 
 export const categoryRoutes = (app: Elysia) =>
-  app.group('/category', app =>
+  app.group('/categories', app =>
     app
       .post(
         '/',

@@ -4,7 +4,7 @@ import {cart, cartItem} from '../db/schema'
 import {and, eq} from 'drizzle-orm'
 
 export const cartRoutes = (app: Elysia) =>
-  app.group('/cart', app =>
+  app.group('/carts', app =>
     app
       .post(
         '/',
@@ -21,7 +21,7 @@ export const cartRoutes = (app: Elysia) =>
           body: t.Object({name: t.Optional(t.String()), item_id: t.String(), quantity: t.Number()}),
         },
       )
-      .put(
+      .patch(
         '/:id',
         async ({body, params}) => {
           if (body.name) {
@@ -31,8 +31,11 @@ export const cartRoutes = (app: Elysia) =>
           const res = await db.query.cartItem.findFirst({where: eq(cartItem.item_id, body.item_id)})
 
           console.log(res)
+
           let res1
-          if (!res?.item_id) {
+
+          if (!res) {
+            // todo add item to cart
             res1 = await db
               .insert(cartItem)
               .values({
@@ -42,16 +45,20 @@ export const cartRoutes = (app: Elysia) =>
               })
               .returning()
           } else {
+            // todo update quantity
+
             res1 = await db
               .update(cartItem)
               .set({quantity: body.quantity})
               .where(and(eq(cartItem.cart_id, params.id), eq(cartItem.item_id, body.item_id)))
               .returning()
           }
+          console.log(res1, 'res1')
 
-          if (res1?.length > 0) {
+          if (res1.length > 0) {
             return {cart_id: res1[0].cart_id, item_id: res1[0].item_id, success: true}
           } else {
+            return {success: false}
           }
         },
         {
@@ -101,28 +108,6 @@ export const cartRoutes = (app: Elysia) =>
         })
 
         return res?.cart
-        // get
-        // {
-        //   category: 'Fruit and vegetables',
-        //   category_id: '2701338f-e085-4de2-94aa-97ff1af00f39',
-        //   items: [
-        //     {
-        //       id: '1',
-        //       name: 'Tasty Concrete',
-        //       quantity: 3,
-        //     },
-        //     {
-        //       id: '2',
-        //       name: 'Incredible Rubber Pants',
-        //       quantity: 1,
-        //     },
-        //     {
-        //       id: '3',
-        //       name: 'Awesome Frozen Shirt',
-        //       quantity: 2,
-        //     },
-        //   ],
-        // },
       })
       .get('/', () => {
         return db.query.cartItem.findMany()
