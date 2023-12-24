@@ -11,17 +11,17 @@
     "build": "bun build ./src/index.ts --outdir ./build"
   },
   "dependencies": {
-    "@elysiajs/cors": "^0.7.2",
+    "@elysiajs/cors": "^0.8.0",
     "@libsql/client": "^0.3.6",
-    "drizzle-orm": "^0.28.6    ",
+    "drizzle-orm": "^0.29.1",
     "drizzle-typebox": "^0.1.1",
-    "elysia": "^0.7.30",
+    "elysia": "^0.8.3",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/uuid": "^9.0.7",
     "bun-types": "latest",
-    "drizzle-kit": "^0.20.6"
+    "drizzle-kit": "^0.20.7"
   },
   "module": "src/index.js"
 }

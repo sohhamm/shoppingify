@@ -30,12 +30,15 @@ export const cartRoutes = (app: Elysia) =>
 
           const res = await db.query.cartItem.findFirst({where: eq(cartItem.item_id, body.item_id)})
 
-          console.log(res)
+          let cartRes
+
+          if (body.quantity === 0) {
+            cartRes = await db.query.cartItem.findMany({where: eq(cartItem.cart_id, params.id)})
+          }
 
           let res1
 
           if (!res) {
-            // todo add item to cart
             res1 = await db
               .insert(cartItem)
               .values({
@@ -45,15 +48,24 @@ export const cartRoutes = (app: Elysia) =>
               })
               .returning()
           } else {
-            // todo update quantity
+            if (body.quantity === 0) {
+              res1 = await db
+                .delete(cartItem)
+                .where(and(eq(cartItem.cart_id, params.id), eq(cartItem.item_id, body.item_id)))
+                .returning()
 
-            res1 = await db
-              .update(cartItem)
-              .set({quantity: body.quantity})
-              .where(and(eq(cartItem.cart_id, params.id), eq(cartItem.item_id, body.item_id)))
-              .returning()
+              if (cartRes?.length === 1) {
+                // delete the cart, since it's the last item in the cart
+                res1 = await db.delete(cart).where(eq(cart.cart_id, params.id)).returning()
+              }
+            } else {
+              res1 = await db
+                .update(cartItem)
+                .set({quantity: body.quantity})
+                .where(and(eq(cartItem.cart_id, params.id), eq(cartItem.item_id, body.item_id)))
+                .returning()
+            }
           }
-          console.log(res1, 'res1')
 
           if (res1.length > 0) {
             return {cart_id: res1[0].cart_id, item_id: res1[0].item_id, success: true}
@@ -62,7 +74,11 @@ export const cartRoutes = (app: Elysia) =>
           }
         },
         {
-          body: t.Object({name: t.Optional(t.String()), item_id: t.String(), quantity: t.Number()}),
+          body: t.Object({
+            name: t.Optional(t.String()),
+            item_id: t.String(),
+            quantity: t.Number({minimum: 0}),
+          }),
         },
       )
       .get('/:id', async ({params}) => {
@@ -107,7 +123,36 @@ export const cartRoutes = (app: Elysia) =>
           },
         })
 
-        return res?.cart
+        if (res?.cart?.cart_id) {
+          let _items: {category_id?: string; items: any[]; category_name?: string}[] = []
+
+          res.cart.cartItem.forEach(ci => {
+            const idx = _items?.findIndex(
+              i => i?.category_id === ci.item?.category.category.category_id,
+            )
+            if (idx !== -1) {
+              _items[idx].items = [
+                ..._items[idx].items,
+                {item_id: ci.item?.item_id, name: ci.item?.name, quantity: ci.quantity},
+              ]
+            } else {
+              const obj = {
+                category_name: ci.item?.category.category.category_name,
+                category_id: ci.item?.category.category.category_id,
+                items: [{item_id: ci.item?.item_id, name: ci.item?.name, quantity: ci.quantity}],
+              }
+              _items.push(obj)
+            }
+          })
+
+          return {
+            name: res.cart.name,
+            cart_id: res.cart.cart_id,
+            items: _items,
+          }
+        } else {
+          return {msg: 'No cart found', data: []}
+        }
       })
       .get('/', () => {
         return db.query.cartItem.findMany()

@@ -9,17 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@elysiajs/eden": "^0.7.7",
+    "@elysiajs/eden": "^0.8.0",
     "@modular-forms/solid": "^0.20.0",
-    "@solidjs/router": "^0.10.2",
-    "@tanstack/solid-query": "^5.14.0",
+    "@solidjs/router": "^0.10.5",
+    "@tanstack/solid-query": "^5.14.2",
     "@zag-js/combobox": "^0.31.1",
     "@zag-js/dialog": "^0.31.1",
     "@zag-js/solid": "^0.31.1",
     "@zag-js/tooltip": "^0.31.1",
-    "apexcharts": "^3.45.0",
-    "elysia": "^0.7.30",
-    "lucide-solid": "^0.298.0",
+    "apexcharts": "^3.45.1",
+    "elysia": "^0.8.3",
+    "lucide-solid": "^0.300.0",
     "solid-apexcharts": "^0.3.2",
     "solid-js": "^1.8.7",
     "valibot": "^0.24.1"

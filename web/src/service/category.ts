@@ -6,7 +6,7 @@ export const createCategoryQuery = () => {
   return createQuery(() => ({
     queryKey: ['categories'],
     queryFn: async () => {
-      const res = await app.category[''].get({$query: {}})
+      const res = await app.categories[''].get({$query: {}})
       if (res.error) throw res.error
       return res.data
     },
