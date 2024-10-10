@@ -156,5 +156,23 @@ export const cartRoutes = (app: Elysia) =>
       })
       .get('/', () => {
         return db.query.cartItem.findMany()
-      }),
+      })
+      .patch(
+        '/:id/status',
+        async ({body, params}) => {
+          const res = await db
+            .update(cart)
+            .set({status: body.status})
+            .where(eq(cart.cart_id, params.id))
+          return res
+        },
+        {
+          body: t.Object({status: t.Enum(Status)}),
+        },
+      ),
   )
+
+enum Status {
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled',
+}

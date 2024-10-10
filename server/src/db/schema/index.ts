@@ -40,7 +40,7 @@ export const itemCategory = sqliteTable(
       .notNull()
       .references(() => category.category_id, {onDelete: 'cascade'}),
   },
-  t => ({pk: primaryKey(t.item_id, t.category_id)}),
+  t => ({pk: primaryKey({columns: [t.item_id, t.category_id]})}),
 )
 
 export const cart = sqliteTable('cart', {
@@ -53,7 +53,7 @@ export const cart = sqliteTable('cart', {
     .default('ongoing')
     .notNull(),
   created_at: text('created_at').default(sql`CURRENT_TIMESTAMP`),
-  updated_at: text('updated_at').default(sql`CURRENT_TIMESTAMP`),
+  updated_at: text('updated_at').default(sql`CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP`),
 })
 
 export const selectCartSchema = createSelectSchema(cart)
